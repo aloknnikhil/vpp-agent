@@ -7,6 +7,7 @@ import (
 	"github.com/ligato/cn-infra/db/keyval"
 	"github.com/ligato/cn-infra/health/probe"
 
+	"github.com/ligato/vpp-agent/api/configurator"
 	"github.com/ligato/vpp-agent/api/types"
 	"github.com/ligato/vpp-agent/client"
 	"github.com/ligato/vpp-agent/plugins/kvscheduler/api"
@@ -20,6 +21,7 @@ type APIClient interface {
 	ModelAPIClient
 	SchedulerAPIClient
 	VppAPIClient
+	GRPCAPIClient
 
 	ConfigClient() (client.ConfigClient, error)
 
@@ -60,4 +62,8 @@ type VppAPIClient interface {
 
 type KVDBAPIClient interface {
 	keyval.CoreBrokerWatcher
+}
+
+type GRPCAPIClient interface {
+	Configure(ctx context.Context, opts configurator.Config) error
 }
